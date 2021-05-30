@@ -13,10 +13,10 @@ public class DeQueueImpl<E> extends QueueImpl<E> implements DeQueue<E> {
         if (isFull()) {
             return false;
         }
-        if (head == data.length) {
-            head = DEFAULT_HEAD;
+        if (head == DEFAULT_HEAD) {
+            head = data.length;
         }
-        data[head++] = value;
+        data[--head] = value;
         size++;
         return true;
     }
