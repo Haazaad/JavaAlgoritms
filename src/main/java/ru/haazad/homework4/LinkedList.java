@@ -1,6 +1,6 @@
 package ru.haazad.homework4;
 
-public interface LinkedList<E> {
+public interface LinkedList<E> extends Iterable<E> {
 
     void insertFirst(E value);
 
@@ -21,10 +21,16 @@ public interface LinkedList<E> {
     class Node<E> {
         E item;
         Node<E> next;
+        Node<E> prev;
 
         public Node(E item, Node<E> next) {
             this.item = item;
             this.next = next;
+        }
+
+        public Node(E item, Node<E> next, Node<E> prev) {
+            this(item, next);
+            this.prev = prev;
         }
     }
 }

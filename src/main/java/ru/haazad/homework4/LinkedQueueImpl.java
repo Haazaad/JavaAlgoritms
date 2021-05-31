@@ -5,30 +5,37 @@ import ru.haazad.homework3.queue.Queue;
 
 public class LinkedQueueImpl<E> implements Queue<E> {
 
+    private final TwoSideLinkedList<E> data;
+
+    public LinkedQueueImpl() {
+        this.data = new TwoSideLinkedListImpl<>();
+    }
+
 
     @Override
     public boolean insert(E value) {
-        return false;
+        data.insertLast(value);
+        return true;
     }
 
     @Override
     public E remove() {
-        return null;
+        return data.removeFirst();
     }
 
     @Override
     public E peekFront() {
-        return null;
+        return data.getFirst();
     }
 
     @Override
     public int size() {
-        return 0;
+        return data.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return data.isEmpty();
     }
 
     @Override

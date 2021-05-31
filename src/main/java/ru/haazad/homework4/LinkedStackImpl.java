@@ -4,7 +4,11 @@ package ru.haazad.homework4;
 import ru.haazad.homework3.stack.Stack;
 
 public class LinkedStackImpl<E> implements Stack<E> {
-    private SimpleLinkedListImpl<E> data;
+    private final LinkedList<E> data;
+
+    public LinkedStackImpl() {
+        this.data = new SimpleLinkedListImpl<>();
+    }
 
     @Override
     public void push(E value) {
@@ -13,12 +17,12 @@ public class LinkedStackImpl<E> implements Stack<E> {
 
     @Override
     public E pop() {
-        return data.getFirst();
+        return data.removeFirst();
     }
 
     @Override
     public E peek() {
-        return data.removeFirst();
+        return data.getFirst();
     }
 
     @Override
@@ -39,5 +43,10 @@ public class LinkedStackImpl<E> implements Stack<E> {
     @Override
     public void display() {
         data.display();
+    }
+
+    @Override
+    public String toString() {
+        return "data=" + data;
     }
 }

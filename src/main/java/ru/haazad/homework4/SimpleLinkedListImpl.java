@@ -1,5 +1,7 @@
 package ru.haazad.homework4;
 
+import java.util.Iterator;
+
 public class SimpleLinkedListImpl<E> implements LinkedList<E>{
     protected int size;
     protected Node<E> firstElement;
@@ -77,7 +79,11 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>{
 
     @Override
     public E getFirst() {
-        return firstElement != null ? firstElement.item : null;
+        return getValue(firstElement);
+    }
+
+    protected E getValue(Node<E> node) {
+        return node != null ? node.item : null;
     }
 
     @Override
@@ -87,11 +93,16 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>{
         while (current != null) {
             sb.append(current.item);
             if (current.next != null) {
-                current = current.next;
                 sb.append(" -> ");
             }
+            current = current.next;
         }
         sb.append("]");
         return sb.toString();
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return null;
     }
 }

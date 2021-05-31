@@ -61,6 +61,6 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
 
     @Override
     public E getLast() {
-        return lastElement.item;
+        return getValue(lastElement);
     }
 }
