@@ -13,19 +13,23 @@ public class TestApp {
         linkedList.display();
         System.out.println("Contains 4: " + linkedList.contains(4));
         System.out.println("Contains 12: " + linkedList.contains(12));
+        linkedListIterator(linkedList);
     }
 
     private static LinkedList<Integer> prepareList() {
-        LinkedList<Integer> list = new TwoSideLinkedListImpl<>();
-        for (int i = 0; i < 10; i++) {
+        LinkedList<Integer> list = new SimpleLinkedListImpl<>();
+        for (int i = 0; i <= 10; i++) {
             list.insertFirst(i);
         }
         return list;
     }
 
-    private static void linkedListIterator() {
-        LinkedList<Integer> list = prepareList();
-
+    private static void linkedListIterator(LinkedList<Integer> list) {
+        for (Integer i: list) {
+            System.out.println(i);
+        }
+        System.out.println(list.iterator().hasNext());
+        System.out.println(list.iterator().next());
     }
 
 }

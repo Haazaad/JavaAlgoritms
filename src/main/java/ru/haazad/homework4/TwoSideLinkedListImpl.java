@@ -5,10 +5,11 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
 
     @Override
     public void insertLast(E value) {
-        Node<E> newNode = new Node<>(value, null);
+        Node<E> newNode = new Node<>(value, null, null);
         if (isEmpty()) {
             firstElement = newNode;
         } else {
+            newNode.prev = lastElement;
             lastElement.next = newNode;
         }
         lastElement = newNode;
@@ -36,6 +37,7 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
     public boolean remove(E value) {
         Node<E> current = firstElement;
         Node<E> previous = null;
+        Node<E> next;
         while (current != null) {
             if (current.item.equals(value)){
                 break;
@@ -52,9 +54,12 @@ public class TwoSideLinkedListImpl<E> extends SimpleLinkedListImpl<E> implements
             lastElement = previous;
             previous.next = null;
         } else  {
-            previous.next = current.next;
+            next = current.next;
+            previous.next = next;
+            next.prev = previous;
         }
         current.next = null;
+        current.prev = null;
         size--;
         return true;
     }

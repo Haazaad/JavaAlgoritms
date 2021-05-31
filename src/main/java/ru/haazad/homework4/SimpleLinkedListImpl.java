@@ -2,13 +2,13 @@ package ru.haazad.homework4;
 
 import java.util.Iterator;
 
-public class SimpleLinkedListImpl<E> implements LinkedList<E>{
+public class SimpleLinkedListImpl<E> implements LinkedList<E> {
     protected int size;
     protected Node<E> firstElement;
 
     @Override
     public void insertFirst(E value) {
-        firstElement = new Node<>(value, firstElement);
+        firstElement = new Node<>(value, firstElement, null);
         size++;
     }
 
@@ -19,6 +19,7 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>{
         }
         Node<E> removedNode = firstElement;
         firstElement = removedNode.next;
+        firstElement.prev = null;
         removedNode.next = null;
         size--;
         return removedNode.item;
@@ -28,8 +29,9 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>{
     public boolean remove(E value) {
         Node<E> current = firstElement;
         Node<E> previous = null;
+        Node<E> next;
         while (current != null) {
-            if (current.item.equals(value)){
+            if (current.item.equals(value)) {
                 break;
             }
             previous = current;
@@ -41,9 +43,12 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>{
             removeFirst();
             return true;
         } else {
-            previous.next = current.next;
+            next = current.next;
+            previous.next = next;
+            next.prev = previous;
         }
         current.next = null;
+        current.prev = null;
         size--;
         return true;
     }
@@ -52,7 +57,7 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>{
     public boolean contains(E value) {
         Node<E> current = firstElement;
         while (current != null) {
-            if (current.item.equals(value)){
+            if (current.item.equals(value)) {
                 return true;
             }
             current = current.next;
@@ -103,6 +108,39 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>{
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new LinkedListIterator<>();
+    }
+
+    class LinkedListIterator<E> implements Iterator<E> {
+        int index;
+        Node<E> current;
+
+        public LinkedListIterator() {
+            this.index = 0;
+            if (hasNext()) {
+                this.current = (Node<E>) SimpleLinkedListImpl.this.firstElement;
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index != SimpleLinkedListImpl.this.size;
+        }
+
+        @Override
+        public E next() {
+            if (hasNext()) {
+                E item = current.item;
+                index++;
+                current = current.next;
+                return item;
+            }
+            return null;
+        }
+
+        @Override
+        public void remove() {
+            SimpleLinkedListImpl.this.removeFirst();
+        }
     }
 }
