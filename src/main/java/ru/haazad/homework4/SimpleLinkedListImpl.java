@@ -8,7 +8,9 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E> {
 
     @Override
     public void insertFirst(E value) {
-        firstElement = new Node<>(value, firstElement, null);
+        Node<E> newNode = new Node<>(value, firstElement, null);
+        firstElement.prev = newNode;
+        firstElement = newNode;
         size++;
     }
 

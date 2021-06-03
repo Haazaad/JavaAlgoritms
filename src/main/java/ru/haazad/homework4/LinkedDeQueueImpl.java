@@ -28,8 +28,6 @@ public class LinkedDeQueueImpl<E> extends LinkedQueueImpl<E> implements DeQueue<
 
     @Override
     public E removeRight() {
-        E removedValue = data.getLast();
-        data.remove(removedValue);
-        return removedValue;
+        return data.removeFirst();
     }
 }

@@ -5,4 +5,6 @@ public interface TwoSideLinkedList<E> extends LinkedList<E>{
 
     E getLast();
 
+    E removeLast();
+
 }
