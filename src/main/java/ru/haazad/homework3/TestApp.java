@@ -2,17 +2,17 @@ package ru.haazad.homework3;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ru.haazad.homework3.queue.PriorityQueueImpl;
 import ru.haazad.homework3.queue.Queue;
-import ru.haazad.homework3.queue.QueueImpl;
 import ru.haazad.homework3.stack.Stack;
 import ru.haazad.homework3.stack.StackImpl;
+import ru.haazad.homework4.LinkedQueueImpl;
+import ru.haazad.homework4.LinkedStackImpl;
 
 public class TestApp {
     private static final Logger logger = LogManager.getLogger(TestApp.class);
-    
+
     public static void main(String[] args) {
-        testStack();
+//        testStack();
         testQueue();
     }
 
@@ -29,7 +29,8 @@ public class TestApp {
     }
 
     private static void testStack() {
-        Stack<Integer> stack = new StackImpl<>(5);
+//        Stack<Integer> stack = new StackImpl<>(5);
+        Stack<Integer> stack = new LinkedStackImpl<>();
         for (int i = 0; i < 7; i++) {
             logger.info("Add value " + i + " to stack: " + addToStack(stack, i));
         }
@@ -45,7 +46,8 @@ public class TestApp {
 
     private static void testQueue() {
 //        Queue<Integer> queue = new QueueImpl<>(5);
-        Queue<Integer> queue = new PriorityQueueImpl<>(5);
+//        Queue<Integer> queue = new PriorityQueueImpl<>(5);
+        Queue<Integer> queue = new LinkedQueueImpl<>();
         for (int i = 0; i < 7; i++) {
             logger.info("Insert into queue: " + queue.insert((int) (Math.random() * 10)));
         }
