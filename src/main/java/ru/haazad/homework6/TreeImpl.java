@@ -4,7 +4,7 @@ package ru.haazad.homework6;
 import java.util.Stack;
 
 public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
-    private static final int MAX_LEVEL = 6;
+    private static final int MAX_LEVEL = 4;
 
     private class NodeAndParent {
         Node<E> current;
@@ -16,7 +16,6 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         }
     }
 
-    private int currentLevel;
     private int size;
     private Node<E> root;
 
@@ -48,10 +47,11 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
     }
 
     private NodeAndParent doFind(E value) {
+        int treeLevel = 1;
         Node<E> current = root;
         Node<E> previous = null;
 
-        while (current != null) {
+        while (current != null && treeLevel != MAX_LEVEL) {
             if (current.getValue().equals(value)) {
                 return new NodeAndParent(current, previous);
             }
@@ -61,6 +61,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
             } else {
                 current = current.getRightChild();
             }
+            treeLevel++;
         }
         return new NodeAndParent(null, previous);
     }
@@ -244,10 +245,15 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         System.out.println("................................................................");
     }
 
-    public boolean isBalanced(Node<E> node) {
+    @Override
+    public void isBalanced() {
+        System.out.println(balanced(root));
+    }
+
+    public boolean balanced(Node<E> node) {
         return (node == null) ||
-                isBalanced(node.getLeftChild()) &&
-                        isBalanced(node.getRightChild()) &&
+                balanced(node.getLeftChild()) &&
+                        balanced(node.getRightChild()) &&
                         Math.abs(height(node.getLeftChild()) - height(node.getRightChild())) <= 1;
     }
 
